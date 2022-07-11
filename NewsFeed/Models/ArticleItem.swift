@@ -28,3 +28,17 @@ extension ArticleItem {
         URL(string: url) ?? URL(string: "https://apple.com")!
     }
 }
+
+extension ArticleItem {
+    static var mock: ArticleItem {
+        ArticleItem(
+            author: "Tim Cook",
+            title: "WWDC22",
+            description: "One More Thing",
+            url: "apple.com",
+            urlToImage: "apple.com",
+            publishedAt: Date(),
+            content: "Welcome to WWDC 22"
+        )
+    }
+}

@@ -12,7 +12,7 @@ import Moya
 public struct HomeNewsState: Equatable {
     var articles: [ArticleItem]
     var isLoading: Bool = false
-    var searchQuerry: String = "Apple"
+    var searchQuery: String = "Apple"
 }
 
 public enum HomeNewsAction {
@@ -32,8 +32,8 @@ public var homeReducer = Reducer<HomeNewsState, HomeNewsAction, HomeNewsEnvironm
     case .onAppear:
         return Effect(value: .loadArticles)
 
-    case .onSearchEdit(let newQuerry):
-        state.searchQuerry = newQuerry
+    case .onSearchEdit(let newQuery):
+        state.searchQuery = newQuery
         return .none
 
     case .onSearchSend:
@@ -42,7 +42,7 @@ public var homeReducer = Reducer<HomeNewsState, HomeNewsAction, HomeNewsEnvironm
     case .loadArticles:
         state.isLoading = true
         return environment.client
-            .requestArticlesPublisher(querry: state.searchQuerry)
+            .requestArticlesPublisher(query: state.searchQuery)
             .catchToEffect { result in
                 .receivedResult(result)
             }

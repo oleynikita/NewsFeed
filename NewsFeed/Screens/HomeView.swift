@@ -10,11 +10,8 @@ import ComposableArchitecture
 
 struct HomeView: View {
     
-    @ObservedObject
-    private var viewStore: ViewStore<HomeNewsState, HomeNewsAction>
-
-    @Environment(\.scenePhase)
-    private var scenePhase
+    @Environment(\.scenePhase) private var scenePhase
+    @ObservedObject private var viewStore: ViewStore<HomeNewsState, HomeNewsAction>
     
     init(store: Store<HomeNewsState, HomeNewsAction>) {
         self.viewStore = ViewStore(store)
@@ -31,7 +28,7 @@ struct HomeView: View {
                         LazyVStack {
                             ForEach(viewStore.articles, id: \.self) { article in
                                 NavigationLink {
-                                    ArticleDetailView(url: article.urlObject)
+                                    ArticleView(url: article.urlObject)
                                 } label: {
                                     NewsItemView(item: article)
                                 }
@@ -43,7 +40,7 @@ struct HomeView: View {
             }
             .navigationTitle("News Home")
             .background(Color(UIColor.systemGray5))
-            .searchable(text: searchQuerry)
+            .searchable(text: searchQuery)
             .onSubmit(of: .search) {
                 viewStore.send(.onSearchSend)
             }
@@ -56,38 +53,11 @@ struct HomeView: View {
         }
     }
     
-    private var searchQuerry: Binding<String> {
+    private var searchQuery: Binding<String> {
         Binding(
-            get: { viewStore.state.searchQuerry },
+            get: { viewStore.state.searchQuery },
             set: { viewStore.send(.onSearchEdit($0)) }
         )
-    }
-}
-
-struct NewsItemView: View {
-    let item: ArticleItem
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Circle()
-                    .frame(width: 50, height: 50)
-                Text(item.author ?? "Author unknown")
-                Spacer()
-                Text(item.stringDate)
-            }
-            VStack(alignment: .leading) {
-                Text(item.title)
-                    .font(.title)
-                    .foregroundColor(.primary)
-                Text(item.description)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            Text(item.content)
-        }
-        .padding()
-        .background(Color.white)
     }
 }
 

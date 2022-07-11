@@ -1,16 +1,21 @@
 //
-//  ArticleDetailView.swift
+//  WebView.swift
 //  NewsFeed
 //
-//  Created by Mykyta Oliinyk on 11.07.2022.
+//  Created by Mykyta Oliinyk on 12.07.2022.
 //
 
 import SwiftUI
 import WebKit
- 
+import Combine
+
 struct WebView: UIViewRepresentable {
- 
-    var url: URL
+
+    let url: URL
+    
+    init(url: URL) {
+        self.url = url
+    }
  
     func makeUIView(context: Context) -> WKWebView {
         return WKWebView()
@@ -22,17 +27,8 @@ struct WebView: UIViewRepresentable {
     }
 }
 
-struct ArticleDetailView: View {
-    
-    let url: URL
-    
-    var body: some View {
-        WebView(url: url)
-    }
-}
-
-struct ArticleDetailView_Previews: PreviewProvider {
+struct WebView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView(url: URL(string: "https:\\apple.com")!)
+        WebView(url: URL(string: "https://apple.com")!)
     }
 }

@@ -11,7 +11,7 @@ import CombineMoya
 import Moya
 
 protocol NewsClientProtocol {
-    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError>
+    func requestArticlesPublisher(query: String) -> AnyPublisher<ArticlesResult, MoyaError>
 }
 
 class NewsClient: NewsClientProtocol {
@@ -23,8 +23,8 @@ class NewsClient: NewsClientProtocol {
         self.decoder = decoder
     }
     
-    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError> {
-        provider.requestPublisher(.artileList(querry: querry))
+    func requestArticlesPublisher(query: String) -> AnyPublisher<ArticlesResult, MoyaError> {
+        provider.requestPublisher(.artileList(query: query))
             .map(ArticlesResult.self, using: decoder)
             .eraseToAnyPublisher()
     }
@@ -37,7 +37,7 @@ class NewsClient: NewsClientProtocol {
 }
 
 class NewsClientMock: NewsClientProtocol {
-    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError> {
+    func requestArticlesPublisher(query: String) -> AnyPublisher<ArticlesResult, MoyaError> {
         return Just(
             ArticlesResult(
                 status: "200",
