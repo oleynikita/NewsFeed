@@ -25,6 +25,6 @@ extension ArticleItem {
     }
     
     var urlObject: URL {
-        URL(string: url)!
+        URL(string: url) ?? URL(string: "https://apple.com")!
     }
 }
