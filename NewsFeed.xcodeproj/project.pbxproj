@@ -17,6 +17,12 @@
 		50429499287C779300EA40E2 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 50429498287C779300EA40E2 /* CombineMoya */; };
 		5042949B287C779300EA40E2 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5042949A287C779300EA40E2 /* Moya */; };
 		5042949E287C77C900EA40E2 /* NewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042949D287C77C900EA40E2 /* NewsClient.swift */; };
+		504294A0287C905700EA40E2 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042949F287C905700EA40E2 /* ArticleDetailView.swift */; };
+		504294A3287C956900EA40E2 /* ArticleResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504294A2287C956900EA40E2 /* ArticleResult.swift */; };
+		504294A5287C958700EA40E2 /* ArticleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504294A4287C958700EA40E2 /* ArticleItem.swift */; };
+		504294A8287C978F00EA40E2 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 504294A7287C978F00EA40E2 /* ComposableArchitecture */; };
+		504294AB287C97AA00EA40E2 /* NewsFeedCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504294AA287C97AA00EA40E2 /* NewsFeedCore.swift */; };
+		504294AD287CA64100EA40E2 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504294AC287CA64100EA40E2 /* NewsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,11 @@
 		50429487287C74E200EA40E2 /* NewsFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITests.swift; sourceTree = "<group>"; };
 		50429489287C74E200EA40E2 /* NewsFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5042949D287C77C900EA40E2 /* NewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsClient.swift; sourceTree = "<group>"; };
+		5042949F287C905700EA40E2 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
+		504294A2287C956900EA40E2 /* ArticleResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleResult.swift; sourceTree = "<group>"; };
+		504294A4287C958700EA40E2 /* ArticleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleItem.swift; sourceTree = "<group>"; };
+		504294AA287C97AA00EA40E2 /* NewsFeedCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCore.swift; sourceTree = "<group>"; };
+		504294AC287CA64100EA40E2 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +68,7 @@
 			files = (
 				5042949B287C779300EA40E2 /* Moya in Frameworks */,
 				50429499287C779300EA40E2 /* CombineMoya in Frameworks */,
+				504294A8287C978F00EA40E2 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,11 +112,14 @@
 		5042946B287C74E100EA40E2 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
+				504294A9287C979C00EA40E2 /* Core */,
+				504294A1287C954C00EA40E2 /* Models */,
 				5042949C287C77A300EA40E2 /* Client */,
 				5042946C287C74E100EA40E2 /* NewsFeedApp.swift */,
 				5042946E287C74E100EA40E2 /* HomeView.swift */,
 				50429470287C74E200EA40E2 /* Assets.xcassets */,
 				50429472287C74E200EA40E2 /* Preview Content */,
+				5042949F287C905700EA40E2 /* ArticleDetailView.swift */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -138,8 +153,26 @@
 			isa = PBXGroup;
 			children = (
 				5042949D287C77C900EA40E2 /* NewsClient.swift */,
+				504294AC287CA64100EA40E2 /* NewsService.swift */,
 			);
 			path = Client;
+			sourceTree = "<group>";
+		};
+		504294A1287C954C00EA40E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				504294A2287C956900EA40E2 /* ArticleResult.swift */,
+				504294A4287C958700EA40E2 /* ArticleItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		504294A9287C979C00EA40E2 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				504294AA287C97AA00EA40E2 /* NewsFeedCore.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +194,7 @@
 			packageProductDependencies = (
 				50429498287C779300EA40E2 /* CombineMoya */,
 				5042949A287C779300EA40E2 /* Moya */,
+				504294A7287C978F00EA40E2 /* ComposableArchitecture */,
 			);
 			productName = NewsFeed;
 			productReference = 50429469287C74E100EA40E2 /* NewsFeed.app */;
@@ -236,6 +270,7 @@
 			mainGroup = 50429460287C74E100EA40E2;
 			packageReferences = (
 				50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */,
+				504294A6287C978F00EA40E2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 5042946A287C74E100EA40E2 /* Products */;
 			projectDirPath = "";
@@ -279,9 +314,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				504294AB287C97AA00EA40E2 /* NewsFeedCore.swift in Sources */,
+				504294A0287C905700EA40E2 /* ArticleDetailView.swift in Sources */,
+				504294AD287CA64100EA40E2 /* NewsService.swift in Sources */,
 				5042946F287C74E100EA40E2 /* HomeView.swift in Sources */,
+				504294A3287C956900EA40E2 /* ArticleResult.swift in Sources */,
 				5042949E287C77C900EA40E2 /* NewsClient.swift in Sources */,
 				5042946D287C74E100EA40E2 /* NewsFeedApp.swift in Sources */,
+				504294A5287C958700EA40E2 /* ArticleItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +656,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		504294A6287C978F00EA40E2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = exactVersion;
+				version = 0.38.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -628,6 +676,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		504294A7287C978F00EA40E2 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 504294A6287C978F00EA40E2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

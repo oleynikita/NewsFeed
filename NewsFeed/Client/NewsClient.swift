@@ -6,97 +6,57 @@
 //
 
 import Foundation
-import Moya
-import CombineMoya
 import Combine
+import CombineMoya
+import Moya
 
-enum NewsService {
-    case artileList(querry: String)
-    case article(id: String)
+protocol NewsClientProtocol {
+    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError>
 }
 
-extension NewsService: TargetType {
-    var baseURL: URL {
-        URL(string: "https://newsapi.org/v2")!
+class NewsClient: NewsClientProtocol {
+    private let provider: MoyaProvider<NewsService>
+    private let decoder: JSONDecoder
+    
+    init(provider: MoyaProvider<NewsService> = MoyaProvider<NewsService>(), decoder: JSONDecoder = defaultDecoder) {
+        self.provider = provider
+        self.decoder = decoder
     }
     
-    var path: String {
-        switch self {
-        case .artileList(_):
-            return "/everything"
-        case .article(_):
-            return "/everything"
-        }
+    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError> {
+        provider.requestPublisher(.artileList(querry: querry))
+            .map(ArticlesResult.self, using: decoder)
+            .eraseToAnyPublisher()
     }
     
-    var method: Moya.Method {
-        return .get
-    }
-    
-    var task: Task {
-        switch self {
-        case .article(let id):
-            return .requestPlain
-        case .artileList(let querry):
-            return .requestParameters(parameters: ["q" : querry, "apiKey" : "1f569f217bb94447ac173f100dcfeef5"], encoding: URLEncoding.queryString)
-        }
-        
-    }
-    
-    var headers: [String: String]? {
-        return ["Content-type": "application/json"]
+    private static var defaultDecoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
     }
 }
 
-struct ArticleResultItem: Codable, Hashable {
-    let author: String?
-    let title: String
-    let description: String
-    let url: String
-    let urlToImage: String
-    let publishedAt: Date
-    let content: String
-    
-    var stringDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter.string(from: publishedAt)
-    }
-}
-
-struct ArticlesResult: Codable, Hashable {
-    let status: String
-    let totalResults:Int
-    let articles: [ArticleResultItem]
-}
-
-//struct NewsSource: Codable, Hashable {
-//    let id: String?
-//    let name: String?
-//}
-
-class NewsClient {
-    private let provider = MoyaProvider<NewsService>()
-    
-    func requestArticles(querry: String, completion: @escaping ((Result<ArticlesResult, NewsClientError>) -> Void)) {
-        provider.request(.artileList(querry: querry)) { result in
-            switch result {
-            case .success(let response):
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    let result = try decoder.decode(ArticlesResult.self, from: response.data)
-                    completion(.success(result))
-                } catch {
-                    print(error.localizedDescription)
-                    completion(.failure(.decodingError))
-                }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                completion(.failure(.networkError))
-            }
-        }
+class NewsClientMock: NewsClientProtocol {
+    func requestArticlesPublisher(querry: String) -> AnyPublisher<ArticlesResult, MoyaError> {
+        return Just(
+            ArticlesResult(
+                status: "200",
+                totalResults: 1,
+                articles: [
+                    ArticleItem(
+                        author: "Mock author",
+                        title: "Mock title",
+                        description: "Mock description",
+                        url: "apple.com",
+                        urlToImage: "apple.com",
+                        publishedAt: Date(),
+                        content: "Mock content"
+                    )
+                ]
+            )
+        )
+        .setFailureType(to: MoyaError.self)
+        .eraseToAnyPublisher()
     }
 }
 

@@ -6,35 +6,58 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct HomeView: View {
     
-    let articles: [ArticleResultItem]
+    @ObservedObject
+    private var viewStore: ViewStore<HomeNewsState, HomeNewsAction>
+    
+    init(store: Store<HomeNewsState, HomeNewsAction>) {
+        self.viewStore = ViewStore(store)
+    }
     
     var body: some View {
         NavigationView {
             VStack {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(articles, id: \.self) { article in
-                            NavigationLink {
-                                Text("Test")
-                            } label: {
-                                NewsItemView(item: article)
+                VStack {
+                    if viewStore.isLoading {
+                        ProgressView()
+                    }
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(viewStore.articles, id: \.self) { article in
+                                NavigationLink {
+                                    ArticleDetailView(url: article.urlObject)
+                                } label: {
+                                    NewsItemView(item: article)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
                     }
                 }
             }
-            .background(Color.gray.opacity(0.1))
+            .background(Color(UIColor.systemBackground))
             .navigationTitle("News Home")
+            .searchable(text: searchQuerry)
+            .onSubmit(of: .search) {
+                viewStore.send(.onSearchSend)
+            }
         }
+        .onAppear(perform: { viewStore.send(.onAppear) })
+    }
+    
+    private var searchQuerry: Binding<String> {
+        Binding(
+            get: { viewStore.state.searchQuerry },
+            set: { viewStore.send(.onSearchEdit($0)) }
+        )
     }
 }
 
 struct NewsItemView: View {
-    let item: ArticleResultItem
+    let item: ArticleItem
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -62,25 +85,27 @@ struct NewsItemView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(articles: [
-            ArticleResultItem(
-                author: "Tim Cook",
-                title: "WWDC22",
-                description: "One More Thing",
-                url: "apple.com",
-                urlToImage: "apple.com",
-                publishedAt: Date(),
-                content: "Welcome to WWDC 22"
+        HomeView(store: .mock)
+    }
+}
+
+extension Store where State == HomeNewsState, Action == HomeNewsAction {
+    static var mock: Store<HomeNewsState, HomeNewsAction> {
+        Store(
+            initialState: .init(
+                articles: [
+                    ArticleItem(
+                        author: "Tim Cook",
+                        title: "WWDC22",
+                        description: "One More Thing",
+                        url: "apple.com",
+                        urlToImage: "apple.com",
+                        publishedAt: Date(),
+                        content: "Welcome to WWDC 22"
+                    )
+                ]
             ),
-            ArticleResultItem(
-                author: "Tim Cook 2",
-                title: "WWDC22",
-                description: "One More Thing",
-                url: "apple.com",
-                urlToImage: "apple.com",
-                publishedAt: Date(),
-                content: "Welcome to WWDC 22 sdf  sdf sdfsd dsfsdfsd dsfdsf sdfdsfsd fsdf sdfdsfdsf sdfsdfsdf"
-            )
-        ])
+            reducer: homeReducer,
+            environment: .init(client: NewsClientMock()))
     }
 }
