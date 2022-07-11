@@ -12,6 +12,9 @@ struct HomeView: View {
     
     @ObservedObject
     private var viewStore: ViewStore<HomeNewsState, HomeNewsAction>
+
+    @Environment(\.scenePhase)
+    private var scenePhase
     
     init(store: Store<HomeNewsState, HomeNewsAction>) {
         self.viewStore = ViewStore(store)
@@ -38,14 +41,19 @@ struct HomeView: View {
                     }
                 }
             }
-            .background(Color(UIColor.systemBackground))
             .navigationTitle("News Home")
+            .background(Color(UIColor.systemGray5))
             .searchable(text: searchQuerry)
             .onSubmit(of: .search) {
                 viewStore.send(.onSearchSend)
             }
         }
         .onAppear(perform: { viewStore.send(.onAppear) })
+        .onChange(of: scenePhase) { newValue in
+            if case .active = newValue {
+                viewStore.send(.onAppear)
+            }
+        }
     }
     
     private var searchQuerry: Binding<String> {
