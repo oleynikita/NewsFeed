@@ -43,15 +43,7 @@ class NewsClientMock: NewsClientProtocol {
                 status: "200",
                 totalResults: 1,
                 articles: [
-                    ArticleItem(
-                        author: "Mock author",
-                        title: "Mock title",
-                        description: "Mock description",
-                        url: "apple.com",
-                        urlToImage: "apple.com",
-                        publishedAt: Date(),
-                        content: "Mock content"
-                    )
+                    .mock
                 ]
             )
         )

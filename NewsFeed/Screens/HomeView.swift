@@ -72,15 +72,7 @@ extension Store where State == HomeNewsState, Action == HomeNewsAction {
         Store(
             initialState: .init(
                 articles: [
-                    ArticleItem(
-                        author: "Tim Cook",
-                        title: "WWDC22",
-                        description: "One More Thing",
-                        url: "apple.com",
-                        urlToImage: "apple.com",
-                        publishedAt: Date(),
-                        content: "Welcome to WWDC 22"
-                    )
+                    .mock
                 ]
             ),
             reducer: homeReducer,
