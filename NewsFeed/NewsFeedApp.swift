@@ -14,6 +14,11 @@ struct NewsFeedApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView(store: homeStore)
+                .onAppear {
+                    let appearance = UINavigationBarAppearance()
+                    appearance.configureWithDefaultBackground()
+                    UINavigationBar.appearance().scrollEdgeAppearance = appearance
+                }
         }
     }
     
