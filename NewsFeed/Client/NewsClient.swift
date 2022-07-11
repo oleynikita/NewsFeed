@@ -54,8 +54,14 @@ struct ArticleResultItem: Codable, Hashable {
     let description: String
     let url: String
     let urlToImage: String
-    let publishedAt: String
+    let publishedAt: Date
     let content: String
+    
+    var stringDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter.string(from: publishedAt)
+    }
 }
 
 struct ArticlesResult: Codable, Hashable {
@@ -72,7 +78,9 @@ class NewsClient {
             switch result {
             case .success(let response):
                 do {
-                    let result = try JSONDecoder().decode(ArticlesResult.self, from: response.data)
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let result = try decoder.decode(ArticlesResult.self, from: response.data)
                     completion(.success(result))
                 } catch {
                     print(error.localizedDescription)
