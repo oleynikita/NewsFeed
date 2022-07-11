@@ -59,8 +59,3 @@ class NewsClientMock: NewsClientProtocol {
         .eraseToAnyPublisher()
     }
 }
-
-enum NewsClientError: Error {
-    case decodingError
-    case networkError
-}
