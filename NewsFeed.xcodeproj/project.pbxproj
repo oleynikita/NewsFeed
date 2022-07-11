@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5042946D287C74E100EA40E2 /* NewsFeedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042946C287C74E100EA40E2 /* NewsFeedApp.swift */; };
-		5042946F287C74E100EA40E2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042946E287C74E100EA40E2 /* ContentView.swift */; };
+		5042946F287C74E100EA40E2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042946E287C74E100EA40E2 /* HomeView.swift */; };
 		50429471287C74E200EA40E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50429470287C74E200EA40E2 /* Assets.xcassets */; };
 		50429474287C74E200EA40E2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50429473287C74E200EA40E2 /* Preview Assets.xcassets */; };
 		5042947E287C74E200EA40E2 /* NewsFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042947D287C74E200EA40E2 /* NewsFeedTests.swift */; };
 		50429488287C74E200EA40E2 /* NewsFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50429487287C74E200EA40E2 /* NewsFeedUITests.swift */; };
 		5042948A287C74E200EA40E2 /* NewsFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50429489287C74E200EA40E2 /* NewsFeedUITestsLaunchTests.swift */; };
+		50429499287C779300EA40E2 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 50429498287C779300EA40E2 /* CombineMoya */; };
+		5042949B287C779300EA40E2 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5042949A287C779300EA40E2 /* Moya */; };
+		5042949E287C77C900EA40E2 /* NewsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5042949D287C77C900EA40E2 /* NewsClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		50429469287C74E100EA40E2 /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5042946C287C74E100EA40E2 /* NewsFeedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedApp.swift; sourceTree = "<group>"; };
-		5042946E287C74E100EA40E2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5042946E287C74E100EA40E2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		50429470287C74E200EA40E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50429473287C74E200EA40E2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		50429479287C74E200EA40E2 /* NewsFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +47,7 @@
 		50429483287C74E200EA40E2 /* NewsFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50429487287C74E200EA40E2 /* NewsFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITests.swift; sourceTree = "<group>"; };
 		50429489287C74E200EA40E2 /* NewsFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5042949D287C77C900EA40E2 /* NewsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5042949B287C779300EA40E2 /* Moya in Frameworks */,
+				50429499287C779300EA40E2 /* CombineMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +100,9 @@
 		5042946B287C74E100EA40E2 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
+				5042949C287C77A300EA40E2 /* Client */,
 				5042946C287C74E100EA40E2 /* NewsFeedApp.swift */,
-				5042946E287C74E100EA40E2 /* ContentView.swift */,
+				5042946E287C74E100EA40E2 /* HomeView.swift */,
 				50429470287C74E200EA40E2 /* Assets.xcassets */,
 				50429472287C74E200EA40E2 /* Preview Content */,
 			);
@@ -127,6 +134,14 @@
 			path = NewsFeedUITests;
 			sourceTree = "<group>";
 		};
+		5042949C287C77A300EA40E2 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				5042949D287C77C900EA40E2 /* NewsClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +158,10 @@
 			dependencies = (
 			);
 			name = NewsFeed;
+			packageProductDependencies = (
+				50429498287C779300EA40E2 /* CombineMoya */,
+				5042949A287C779300EA40E2 /* Moya */,
+			);
 			productName = NewsFeed;
 			productReference = 50429469287C74E100EA40E2 /* NewsFeed.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +234,9 @@
 				Base,
 			);
 			mainGroup = 50429460287C74E100EA40E2;
+			packageReferences = (
+				50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			productRefGroup = 5042946A287C74E100EA40E2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,7 +279,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5042946F287C74E100EA40E2 /* ContentView.swift in Sources */,
+				5042946F287C74E100EA40E2 /* HomeView.swift in Sources */,
+				5042949E287C77C900EA40E2 /* NewsClient.swift in Sources */,
 				5042946D287C74E100EA40E2 /* NewsFeedApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,6 +606,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		50429498287C779300EA40E2 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		5042949A287C779300EA40E2 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 50429497287C779300EA40E2 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 50429461287C74E100EA40E2 /* Project object */;
 }
