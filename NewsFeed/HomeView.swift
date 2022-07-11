@@ -12,19 +12,24 @@ struct HomeView: View {
     let articles: [ArticleResultItem]
     
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(articles, id: \.self) { article in
-                        Button(action: {}) {
-                            NewsItemView(item: article)
+        NavigationView {
+            VStack {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(articles, id: \.self) { article in
+                            NavigationLink {
+                                Text("Test")
+                            } label: {
+                                NewsItemView(item: article)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
             }
+            .background(Color.gray.opacity(0.1))
+            .navigationTitle("News Home")
         }
-        .background(Color.gray.opacity(0.1))
     }
 }
 

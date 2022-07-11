@@ -70,6 +70,11 @@ struct ArticlesResult: Codable, Hashable {
     let articles: [ArticleResultItem]
 }
 
+//struct NewsSource: Codable, Hashable {
+//    let id: String?
+//    let name: String?
+//}
+
 class NewsClient {
     private let provider = MoyaProvider<NewsService>()
     
