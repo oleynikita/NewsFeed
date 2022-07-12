@@ -39,7 +39,7 @@ struct NewsItemView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .transition(.scale(scale: 0.1, anchor: .center))
+                                .transition(.opacity)
                         }
                     }
                 }
