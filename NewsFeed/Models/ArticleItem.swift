@@ -27,6 +27,10 @@ extension ArticleItem {
     var urlObject: URL {
         URL(string: url) ?? URL(string: "https://apple.com")!
     }
+    
+    var imageUrlObject: URL? {
+        URL(string: urlToImage ?? "")
+    }
 }
 
 extension ArticleItem {

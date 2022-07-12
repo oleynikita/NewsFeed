@@ -14,7 +14,7 @@ struct NewsItemView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Circle()
-                    .frame(width: 50, height: 50)
+                    .frame(width: 30, height: 30)
                 Text(item.author ?? "Author unknown")
                 Spacer()
                 Text(item.stringDate)
@@ -23,6 +23,16 @@ struct NewsItemView: View {
                 Text(item.title)
                     .font(.title)
                     .foregroundColor(.primary)
+                if let imageUrl = item.imageUrlObject {
+                    AsyncImage(url: imageUrl) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                }
+                
                 Text(item.description)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
