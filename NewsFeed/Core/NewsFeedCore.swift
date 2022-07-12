@@ -13,6 +13,9 @@ public struct HomeNewsState: Equatable {
     var articles: [ArticleItem]
     var isLoading: Bool = false
     var searchQuery: String = "Apple"
+    var emptyResults: Bool {
+        articles.isEmpty && isLoading == false
+    }
 }
 
 public enum HomeNewsAction {

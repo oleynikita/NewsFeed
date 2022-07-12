@@ -24,15 +24,28 @@ struct HomeView: View {
                     if viewStore.isLoading {
                         ProgressView()
                     }
-                    ScrollView {
-                        LazyVStack {
-                            ForEach(viewStore.articles, id: \.self) { article in
-                                NavigationLink {
-                                    ArticleView(url: article.urlObject)
-                                } label: {
-                                    NewsItemView(item: article)
+                    
+                    if viewStore.emptyResults {
+                        VStack {
+                            Image(systemName: "eyeglasses")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 200, height: 200, alignment: .center)
+                            Text("Sorry, we coudn't find anything. Let's try something like \"Apple\"")
+                                .padding()
+                        }
+                        .background(Color.white)
+                    } else {
+                        ScrollView {
+                            LazyVStack {
+                                ForEach(viewStore.articles, id: \.self) { article in
+                                    NavigationLink {
+                                        ArticleView(url: article.urlObject)
+                                    } label: {
+                                        NewsItemView(item: article)
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
                             }
                         }
                     }
