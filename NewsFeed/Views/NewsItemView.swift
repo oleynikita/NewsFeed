@@ -24,12 +24,23 @@ struct NewsItemView: View {
                     .font(.title)
                     .foregroundColor(.primary)
                 if let imageUrl = item.imageUrlObject {
-                    AsyncImage(url: imageUrl) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        ProgressView()
+                    AsyncImage(url: imageUrl, transaction: Transaction(animation: .easeInOut)) { phase in
+                        if case .empty = phase {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(Color(UIColor.systemGray3).opacity(0.3))
+                                .overlay(
+                                    ProgressView()
+                                )
+                        }
+                        if case .success(let image) = phase {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .transition(.scale(scale: 0.1, anchor: .center))
+                        }
                     }
                 }
                 
